@@ -1,27 +1,23 @@
-" Maintainer	Bhakti Pasaribu
-" Github			https://github.com/balapa/vim-monokai
-
-" Init
 if !has('gui_running') && &t_Co < 256
   finish
 endif
 
-if !exists('g:balakai_gui_italic')
-  let g:balakai_gui_italic = 0
+if !exists('g:monokai_gui_italic')
+  let g:monokai_gui_italic = 0
 endif
 
-if !exists('g:balakai_term_italic')
-  let g:balakai_term_italic = 0
+if !exists('g:monokai_term_italic')
+  let g:monokai_term_italic = 0
 endif
 
-let g:balakai_termcolors = 256 " does not support 16 color term right now.
+let g:monokai_termcolors = 256 " does not support 16 color term right now.
 
 hi clear
 if exists('syntax_on')
   syntax reset
 endif
 
-let colors_name = 'balakai'
+let colors_name = 'monokai'
 
 fun! s:h(group, style)
   let s:ctermformat = 'NONE'
@@ -30,17 +26,17 @@ fun! s:h(group, style)
     let s:ctermformat = a:style.format
     let s:guiformat = a:style.format
   endif
-  if g:balakai_term_italic == 0
+  if g:monokai_term_italic == 0
     let s:ctermformat = substitute(s:ctermformat, ',italic', '', '')
     let s:ctermformat = substitute(s:ctermformat, 'italic,', '', '')
     let s:ctermformat = substitute(s:ctermformat, 'italic', '', '')
   endif
-  if g:balakai_gui_italic == 0
+  if g:monokai_gui_italic == 0
     let s:guiformat = substitute(s:guiformat, ',italic', '', '')
     let s:guiformat = substitute(s:guiformat, 'italic,', '', '')
     let s:guiformat = substitute(s:guiformat, 'italic', '', '')
   endif
-  if g:balakai_termcolors == 16
+  if g:monokai_termcolors == 16
     let l:ctermfg = (has_key(a:style, 'fg') ? a:style.fg.cterm16 : 'NONE')
     let l:ctermbg = (has_key(a:style, 'bg') ? a:style.bg.cterm16 : 'NONE')
   else
@@ -58,7 +54,7 @@ fun! s:h(group, style)
 endfunction
 
 " Expose the more complicated style setting via a global function
-fun! g:SublimebalakaiHighlight(group, style)
+fun! g:SublimemonokaiHighlight(group, style)
 	return s:h(a:group, a:style)
 endfun
 
@@ -68,7 +64,7 @@ endfun
 " namespaced global variable
 fun! s:create_palette_color(color_name, color_data)
 	exec 'let s:' . a:color_name . ' = a:color_data'
-	exec 'let g:sublime_balakai_' . a:color_name . ' = a:color_data'
+	exec 'let g:sublime_monokai_' . a:color_name . ' = a:color_data'
 endf
 
 call s:create_palette_color('brightwhite',  { 'gui': '#FFFFFF', 'cterm': '255' })
@@ -205,7 +201,7 @@ call s:h('Underlined',    { 'format': 'underline' })
 call s:h('Error',         { 'fg': s:red, 'bg': s:darkred })
 hi! link Todo Comment
 
-" Some highlighting groups custom to the Sublime balakai theme
+" Some highlighting groups custom to the Sublime monokai theme
 
 call s:h('SublimeType',   { 'fg': s:aqua, 'format': 'italic' })
 call s:h('SublimeContextParam',  { 'fg': s:orange, 'format': 'italic' })
